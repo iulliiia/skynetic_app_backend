@@ -4,16 +4,16 @@ from PIL import Image, ImageEnhance
 import numpy as np
 import io
 
-# Load your class names (optional)
-CLASS_NAMES = ['benign', 'malign', 'normal']  # Adjust as needed
+# loading class names
+CLASS_NAMES = ['Grad de risc scăzut', 'Grad de risc crescut', 'Piele curată']  
 
 app = Flask(__name__)
 
-# Load the model at startup
-MODEL_PATH = './model.h5'
+# loading the model
+MODEL_PATH = './model2.h5'
 model = load_model(MODEL_PATH, compile=False)
 
-# Adjust input size to match your model (update as needed)
+# adjusting input size to match the model 
 IMG_SIZE = (180, 180)
 
 def preprocess_image(image_bytes):
@@ -34,13 +34,13 @@ def predict():
     file = request.files['image']
     image_bytes = file.read()
     try:
-        # # Preview original image
+        # # previewing the original image
         # image = Image.open(io.BytesIO(image_bytes))
         # image.show(title="Original")
 
         img_array = preprocess_image(image_bytes)  # shape (1, 180, 180, 3)
 
-        # Remove batch dimension and convert back to PIL for preview
+        # # removing batch dimension and converting back to PIL for preview
         # processed_image = Image.fromarray(img_array[0].astype('uint8'), 'RGB')
         # processed_image.show(title="Processed (Resized)")
 
